@@ -35,19 +35,19 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form method="POST">
+                    <form action="../controller/register.php" method="POST">
                         <div class="modal-body">
                             <div class="form-group">
                                 <label>Username: </label>
-                                <input type="text" class="form-control" name="username" placeholder="Contoh: neos18">
+                                <input type="text" class="form-control" name="username" placeholder="Contoh: neos18" required>
                             </div>
                             <div class="form-group">
                                 <label>Password: </label>
-                                <input type="password" class="form-control"name="password" placeholder="123456x">
+                                <input type="password" class="form-control"name="password" placeholder="123456x" required>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Daftar</button>
+                            <button type="submit" class="btn btn-primary" name="register">Daftar</button>
                             <button type="reset" class="btn btn-primary">Reset</button>
                         </div>
                     </form>

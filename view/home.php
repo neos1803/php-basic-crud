@@ -13,6 +13,7 @@
             <center><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-insert">
             Insert New Data !
             </button></center>
+            <br>
             <table class="table table-bordered">
                 <thead>
                     <th scope="col">No.</th>
@@ -20,6 +21,30 @@
                     <th scope="col">Kelas</th>
                     <th scope="col">Action</th>
                 </thead>
+                <tbody>
+                    <?php
+                    include'../controller/connect.php';
+                    $sql = mysqli_query($con, "SELECT * FROM siswa");
+                    while($query = mysqli_fetch_array($sql)){
+                        $id = $query['id_siswa'];
+                        $nama = $query['nama'];
+                        $kelas = $query['kelas'];
+
+                        echo "<tr scope='row'>";
+                        echo "<td>$id</td>";
+                        echo "<td>$nama</td>";
+                        echo "<td>$kelas</td>";
+                        echo "<td>
+                        <form action='action.php' method='post'>
+                            <input type='hidden' name='id_user' value='$id'>
+                            <button type='button' name='delete' class='btn btn-primary'>Delete</button>
+                            <button type='button' name='edit' class='btn btn-primary'>Edit Data</button>
+                        </form>
+                        </td>";
+                        echo "</tr>";
+                    }
+                    ?>
+                </tbody>
             </table>
             <div class="modal fade" id="modal-insert" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
@@ -30,7 +55,7 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form action="insert.php" method="POST">
+                        <form method="POST">
                             <div class="modal-body">
                                 <div class="form-group">
                                     <label for="nama">Nama :</label>
@@ -43,12 +68,22 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="reset" class="btn btn-primary">Reset</button>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary" name="submit">Submit</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
+            <?php
+                include'../controller/connect.php';
+                if(isset($_POST['submit'])) {
+                    $nama = $_POST['nama'];
+                    $kelas = $_POST['kelas'];
+                    $sql = mysqli_query($con, "INSERT into siswa(nama, kelas) VALUES ('$nama', '$kelas')");
+                    echo "<script>alert('Data berhasil ditambahkan')</script>";
+                    echo "<meta http-equiv='refresh' content='0 url=../view/home.php'>";
+                }
+            ?>
         </div>
     </body>
 </html>
